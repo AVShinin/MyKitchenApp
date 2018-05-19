@@ -1,0 +1,54 @@
+﻿@page "{id:int}"
+@model MyKitchenApp.Pages.ProductViewModel
+@{
+    ViewData["Title"] = "Продукт " + Model.Product.Title;
+    Layout = "~/Pages/_Layout.cshtml";
+}
+
+<br/>
+
+<div class="row">
+    <div class="col-lg-6 list-group">
+        <div class="list-group-item active">
+            <h2 class="list-group-item-heading">@Model.Product.Title</h2>
+        </div>
+        <div class="list-group-item">
+            <p>@Html.Raw(Model.Product.Description.Replace("\n", "<br />"))</p>
+        </div>
+    </div>
+
+    <div class="col-lg-6 list-group">
+        <div class="list-group-item active">
+            <h2 class="list-group-item-heading">Подробности</h2>
+        </div>
+        <div class="list-group-item">
+            <h5 class="list-group-item-heading"><b>Количество:</b> @Model.Product.Count @Model.Product.GetSfx()</h5>
+            <p class="list-group-item-text"><b>Калорийность:</b> @Model.Product.Calories (кал/100@(Model.Product.GetSfx()))</p>
+        </div>
+        <div class="list-group-item">
+            <h3>Используется в следующих блюдах</h3>
+            <table class="table table-responsive table-hover">
+                <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th class="text-right">Количество</th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model.Product.ProductDish)
+                {
+                    <tr>
+                        <td><a asp-page="../Dishes/DishView" asp-route-id="@item.DishId">@item.Dish.Title</a></td>
+                        <td class="text-right">@(item.Count)@(item.Product.GetSfx())</td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="list-group-item  text-right">
+            <a class="btn btn-sm btn-primary" asp-page="EditProduct" asp-route-id="@Model.Product.Id">Редактировать</a>
+        </div>
+    </div>
+</div>
+
+<p><a class="btn btn-default" asp-page="Products">Назад</a></p>
+
+

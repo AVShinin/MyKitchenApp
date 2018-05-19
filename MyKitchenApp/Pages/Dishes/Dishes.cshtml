@@ -1,0 +1,34 @@
+﻿@page
+@model MyKitchenApp.Pages.DishesModel
+@{
+    ViewData["Title"] = "Список блюд";
+    Layout = "~/Pages/_Layout.cshtml";
+}
+
+<h2>@ViewData["Title"] <a class="btn btn-success" asp-page="CreateDish">Добавить блюдо</a></h2>
+
+<table class="table table-hover table-responsive">
+    <thead>
+        <tr>
+        <th>Название</th>
+        <th>Описание</th>
+        <th>Управление</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Dishes)
+        {
+        <tr>
+            <td><a asp-page="DishView" asp-route-id="@item.Id">@item.Title</a></td>
+            <td width="70%">@item.Description</td>
+            <td width="100px">
+                <form method="post">
+                    <a class="btn btn-primary" asp-page="EditDish" asp-route-id="@item.Id"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <button class="btn btn-danger" type="submit" asp-page-handler="delete" asp-route-id="@item.Id"><span class="glyphicon glyphicon-remove"></span></button>
+                </form>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+

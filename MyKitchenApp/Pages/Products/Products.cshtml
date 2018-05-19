@@ -1,0 +1,35 @@
+﻿@page
+@model MyKitchenApp.Pages.ProductsModel
+@{
+    ViewData["Title"] = "Список продуктов";
+    Layout = "~/Pages/_Layout.cshtml";
+}
+
+
+<h2>@ViewData["Title"] <a class="btn btn-success" asp-page="CreateProduct">Добавить продукт</a></h2>
+
+<table class="table table-hover table-responsive">
+    <thead>
+        <tr>
+        <th>Название</th>
+        <th>Описание</th>
+        <th>Количество</th>
+        <th>Управление</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Products)
+        {
+        <tr>
+            <td><a asp-page="ProductView" asp-route-id="@item.Id">@item.Title</a></td>
+            <td width="70%">@item.Description</td>
+            <td>@(item.Count) (@(item.GetSfx()))</td>
+            <td width="100px">
+                <form method="post">
+                    <a class="btn btn-primary" asp-page="EditProduct" asp-route-id="@item.Id"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <button class="btn btn-danger" type="submit" asp-page-handler="delete" asp-route-id="@item.Id"><span class="glyphicon glyphicon-remove"></span></button>
+                </form>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

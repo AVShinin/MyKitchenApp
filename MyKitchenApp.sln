@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2000
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyKitchenApp", "MyKitchenApp\MyKitchenApp.csproj", "{2E323EB8-674C-4EC1-A308-630195AB7597}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "MyKitchenApp.Shared", "MyKitchenApp.Shared\MyKitchenApp.Shared.shproj", "{3C8A929C-10E8-4026-910E-60B0E57980E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyKitchenApp.Tests", "MyKitchenApp.Tests\MyKitchenApp.Tests.csproj", "{8445AC74-7C91-46DD-B166-2E4311CE9F2B}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		MyKitchenApp.Shared\MyKitchenApp.Shared.projitems*{3c8a929c-10e8-4026-910e-60b0e57980e2}*SharedItemsImports = 13
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2E323EB8-674C-4EC1-A308-630195AB7597}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E323EB8-674C-4EC1-A308-630195AB7597}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E323EB8-674C-4EC1-A308-630195AB7597}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E323EB8-674C-4EC1-A308-630195AB7597}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8445AC74-7C91-46DD-B166-2E4311CE9F2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8445AC74-7C91-46DD-B166-2E4311CE9F2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8445AC74-7C91-46DD-B166-2E4311CE9F2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8445AC74-7C91-46DD-B166-2E4311CE9F2B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C1471A24-4402-4EC3-BD0D-7EE5FE37CD34}
+	EndGlobalSection
+EndGlobal

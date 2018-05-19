@@ -1,0 +1,44 @@
+﻿@page
+@model MyKitchenApp.Pages.CreateProductModel
+@{
+    ViewData["Title"] = "Новый продукт";
+    Layout = "~/Pages/_Layout.cshtml";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div asp-validation-summary="All"></div>
+
+
+<hr />
+<form method="POST">
+    <div class="form-group">
+        <label for="Product_Title">Название</label>
+        <input type="text" class="form-control" asp-for="Product.Title" placeholder="Введите название">
+    </div>
+    <div class="form-group">
+        <label for="Product_Description">Описание</label>
+        <textarea class="form-control" asp-for="Product.Description" rows="3"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="Product_Count">Количество</label>
+        <div class="input-group">
+            <input type="number" class="form-control" asp-for="Product.Count" placeholder="Введите количество">
+            <div class="input-group-btn">
+                <select class="form-control" asp-for="Product.Abb" style="width:150px;">
+                    <option value="1">шт.</option>
+                    <option value="2">гр.</option>
+                    <option value="3">мл.</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Product_Calories">Энергетическая ценность</label>
+        <input type="number" class="form-control" asp-for="Product.Calories" placeholder="Введите в калориях">
+    </div>
+
+    <a class="btn btn-default" asp-page="Products">Назад</a>
+    <button type="submit" class="btn btn-primary">Добавить</button>
+</form>
+

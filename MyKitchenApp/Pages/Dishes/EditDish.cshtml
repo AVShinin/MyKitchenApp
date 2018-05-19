@@ -1,0 +1,92 @@
+﻿@page "{id:int}"
+@model MyKitchenApp.Pages.EditDishModel
+@{
+    ViewData["Title"] = "Редактировать блюдо " + Model.Dish.Title;
+    Layout = "~/Pages/_Layout.cshtml";
+
+    string productData = string.Join(";", Model.Dish.ProductDish.Select(x => $"{x.ProductId}:{x.Count}")) + ";";
+}
+@functions {
+string Remove(string str, string substr)
+{
+    return str.Replace(substr, "");
+}
+}
+@section Scripts
+    {
+    <script>
+        $('#addProduct').click(function () {
+            var count = $('#productCount').val();
+            var id = $('#productItem').val();
+            var title = $('#productItem').find(':selected').text();
+            var sfx = $('#productItem').find(':selected').data('abb');
+
+            $('#showProducts').append('<tr name="tr_' + id + '"><td>' + title + '</td><td>' + count + sfx + '</td><td><button class="removeProduct" type="button" data-idp="' + id + ':' + count + '">X</button></td></tr>');
+
+            var hiddenValue = $('input[name="ProductsData"]').val();
+            hiddenValue += id + ':' + count + ';';
+            $('input[name="ProductsData"]').val(hiddenValue);
+        });
+
+        $('body').on('click', '.removeProduct', function () {
+            var id = $(this).attr('data-idp');
+            var parent = this.parentElement.parentElement;
+            parent.remove();
+
+            var hiddenValue = $('input[name="ProductsData"]').val();
+            hiddenValue = hiddenValue.replace(id, '');
+            hiddenValue = hiddenValue.replace(';;', ';');
+            $('input[name="ProductsData"]').val(hiddenValue);
+        });
+    </script>
+}
+
+<h2>@ViewData["Title"]</h2>
+<div asp-validation-summary="All"></div>
+<hr />
+<form method="POST">
+    <input asp-for="Dish.Id" type="hidden" />
+    <input type="hidden" value="@productData" name="ProductsData" />
+    <div class="form-group">
+        <label for="Dish_Title">Название</label>
+        <input type="text" class="form-control" asp-for="Dish.Title" placeholder="Введите название">
+    </div>
+    <div class="form-group">
+        <label for="Dish_Description">Описание</label>
+        <textarea class="form-control" asp-for="Dish.Description" rows="3"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="showProducts">Состав</label>
+        <table class="table table-hover" id="showProducts">
+            <thead>
+                <tr>
+                    <th>
+                        <select class="form-control" id="productItem">
+                            @foreach (var product in Model.Products)
+                            {
+                                <option value="@product.Id" data-abb="@product.GetSfx()">@product.Title</option>
+                            }
+                        </select>
+                    </th>
+                    <th><input class="form-control" id="productCount" type="number" placeholder="Количество" /></th>
+                    <th><button class="form-control" id="addProduct" type="button">Добавить к блюду</button></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Dish.ProductDish)
+                {
+                    <tr name="tr_@item.ProductId">
+                        <td>@item.Product.Title</td>
+                        <td>@(item.Count)@(item.Product.GetSfx())</td>
+                        <td><button class="removeProduct" type="button" data-idp="@(item.ProductId):@(item.Count)">X</button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <a class="btn btn-default" asp-page="Dishes">Назад</a>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+</form>
+
+

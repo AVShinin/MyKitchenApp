@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using MyKitchenApp.DBContexts;
+using MyKitchenApp.Models;
+
+namespace MyKitchenApp.Pages
+{
+    public class CreateProductModel : BasePageModel
+    {
+        [BindProperty]
+        public Product Product { get; set; }
+
+        public CreateProductModel(ApplicationContext db) : base(db) { }
+
+        public void OnGet()
+        {
+
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if(Product==null || string.IsNullOrWhiteSpace(Product.Title))
+            {
+                if(ModelState.TryAddModelError("Title", "Необходимо ввести название"))
+                    return Page();
+            }
+
+            if (ModelState.IsValid)
+            {
+                _context.Products.Add(Product);
+                await _context.Flush();
+                return RedirectToPage("Products");
+            }
+            return Page();
+        }
+    }
+}
